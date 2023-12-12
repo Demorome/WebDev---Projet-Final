@@ -33,7 +33,7 @@ namespace INFO4042___Projet_Final.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("someemail@gmail.com", "Contact Manager"),
+                From = new EmailAddress("someemail@gmail.com", "Contactons! - Enregistrer votre compte"),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
