@@ -1,0 +1,115 @@
+﻿@model IEnumerable<INFO4042___Projet_Final.Models.Contact>
+
+@{
+    ViewData["Title"] = "Contacts";
+}
+
+@section CSS
+{
+    @* DataTables plugin css *@
+    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+}
+
+@* Pour permettre un filtrage, la pagination, et un tri *@
+@section Scripts
+{
+    @* DataTables javascript plugin *@
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        //avec JavaScript
+        // new DataTable('#contactTable');
+
+        //avec jQuery
+
+        $('#contactTable').DataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": -1 },//stop sorting on last column (Edit, Details, Delete)
+            ],
+            //Dropdown (how many entries shown at a time)
+            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+        });
+    </script>
+}
+
+<h1>Contacts</h1>
+
+<p>
+    <a asp-action="Create">Créer un nouveau contact</a>
+</p>
+
+@* Vieille méthode pour filtrer
+<form asp-controller="Contacts" asp-action="Index" method="get">
+    <p>
+        Nom du contact: <input type="text" name="searchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+*@
+
+<table class="table", id="contactTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Province)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Province)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ContactId">Modifier</a> |
+                <a asp-action="Details" asp-route-id="@item.ContactId">Détails</a> |
+                <a asp-action="Delete" asp-route-id="@item.ContactId">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

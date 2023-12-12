@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Page d'accueil";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bienvenue à Contactons!™</h1>
+    <img src="~/images/Logo.png" alt="Notre logo" height="310" width="420" />
+
+    <p>Notre application web sera très utile pour tous vos besoins de gestion de contacts!</p>
+
+    <p>Nos objectifs sont de vous offrir le meilleur service que possible!<br />On garde aussi vos données en toute sécurité.</p>
+
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        <p>Créez un compte dès maintenant! <a asp-area="Identity" asp-page="/Account/Register">S'enregistrer</a></p>
+        <p>Vous avez déjà un compte? Vous pouvez vous connecter: <a asp-area="Identity" asp-page="/Account/Login">Se connecter</a></p>
+    }
+    else
+    {
+        <p>Regardez à votre liste de contacts à partir d'ici: <a asp-area="" asp-controller="Contacts" asp-action="Index">Gérer vos contacts</a></p>
+    }
+</div>
