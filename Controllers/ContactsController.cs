@@ -68,7 +68,7 @@ namespace INFO4042___Projet_Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,PhoneNumber,UserName,Address,City,Province,Email,CreationDate,CategoryId")] Contact contact)
+        public async Task<IActionResult> Create([Bind("ContactId,Name,PhoneNumber,UserName,Address,City,Province,Email,CreationDate,CategoryId")] Contact contact)
         {
             if (ModelState.IsValid)
             {
@@ -96,6 +96,8 @@ namespace INFO4042___Projet_Final.Controllers
             {
                 return NotFound();
             }
+            //save data in viewbag to return to view
+            ViewData["UserName"] = User.Identity.Name;
 
             //save data in viewbag to return to view
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Name", contact.CategoryId);
@@ -107,7 +109,7 @@ namespace INFO4042___Projet_Final.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,PhoneNumber,UserName,Address,City,Province,Email,CreationDate,CategoryId")] Contact contact)
+        public async Task<IActionResult> Edit(int id, [Bind("ContactId,Name,PhoneNumber,UserName,Address,City,Province,Email,CreationDate,CategoryId")] Contact contact)
         {
             if (id != contact.ContactId)
             {
